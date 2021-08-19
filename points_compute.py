@@ -64,8 +64,6 @@ def computeMiddleParams(dollarBaseLine, currentAlgord, pointsArray):
         '''
         这里如果index==0 意味着当前的taken profit是50 
         这是第一级take的profit 那么currentAlgord就是原样
-
-
         如果不是的话 那么就要用currentAlgord减掉之前的和
         '''
         if index != 0:
