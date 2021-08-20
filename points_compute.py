@@ -17,10 +17,14 @@ def main(dollarBaseLine=0,
 
     #加上头尾的信息
     headerInfo = {
-        'dollar_base_line': '$' + str(dollarBaseLine),
-        'current_ALGORD': currentAlgord,
-        'balance_point': float('%.3f' % (dollarBaseLine / currentAlgord)),
-        'points_number_to_take': pointsNumberToTake
+        'dollar_base_line':
+        '$' + str(dollarBaseLine),
+        'current_ALGORD':
+        currentAlgord,
+        'balance_point':
+        '$' + str(float('%.3f' % (dollarBaseLine / currentAlgord))),
+        'points_number_to_take':
+        pointsNumberToTake
     },
 
     def getFooterVolume():
@@ -72,7 +76,7 @@ def computeMiddleParams(dollarBaseLine, currentAlgord, pointsArray):
         priceToSell = float('%.3f' %
                             ((dollarBaseLine + takenProfit) / currentAlgord))
         numberToSell = math.ceil(takenProfit / priceToSell)
-        level['price_to_sell'] = priceToSell
+        level['price_to_sell'] = '$' + str(priceToSell)
         level['number_to_sell'] = numberToSell
         level['remaining_currency'] = currentAlgord - numberToSell
 
