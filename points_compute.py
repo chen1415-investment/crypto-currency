@@ -1,11 +1,12 @@
-from constants import profitTakenMap
+from constants import profitTakenMap, smallerProfitTakenMap
 import math
 
 
 def main(dollarBaseLine=0,
          currentAlgord=0,
          pointsNumberToTake=0,
-         withdrawAllMoneyAtLast=True):
+         computeByRemaining=False,
+         withdrawAllMoneyAtLast=False):
 
     #先计算所有的层级
     pointsArray = getTakenPoints(pointsNumberToTake)
@@ -13,7 +14,7 @@ def main(dollarBaseLine=0,
     #层级变化得出中间结果
     #TBD 这里要给出一个json[] 需要写明变量类型
     middleArray = computeMiddleParams(dollarBaseLine, int(currentAlgord),
-                                      pointsArray)
+                                      pointsArray, computeByRemaining)
 
     #加上头尾的信息
     headerInfo = {
@@ -47,7 +48,8 @@ def main(dollarBaseLine=0,
     return result
 
 
-def computeMiddleParams(dollarBaseLine, currentAlgord, pointsArray):
+def computeMiddleParams(dollarBaseLine, currentAlgord, pointsArray,
+                        computeByRemaining):
     '''
     dollarBaseLine: 10000   
     currentAlgord: 7xxx
@@ -71,15 +73,19 @@ def computeMiddleParams(dollarBaseLine, currentAlgord, pointsArray):
         如果不是的话 那么就要用currentAlgord减掉之前的和
         '''
         if index != 0:
-            currentAlgord = pointsArray[index - 1]['remaining_currency']
-
+            if computeByRemaining:
+                currentAlgord = pointsArray[index - 1]['remaining_currency']
+            else:
+                currentAlgord = currentAlgord
         priceToSell = float('%.3f' %
                             ((dollarBaseLine + takenProfit) / currentAlgord))
         numberToSell = math.ceil(takenProfit / priceToSell)
         level['price_to_sell'] = '$' + str(priceToSell)
         level['number_to_sell'] = numberToSell
-        level['remaining_currency'] = currentAlgord - numberToSell
-
+        if computeByRemaining:
+            level['remaining_currency'] = currentAlgord - numberToSell
+        else:
+            level['remaining_currency'] = currentAlgord
     return pointsArray
 
 
@@ -126,6 +132,13 @@ if __name__ == '__main__':
     else:
         withdrawAllMoneyAtLast = int(pointsNumberToTake)
 
+    computeByRemaining = input(
+        "Do you want to compute by remaning(1/0) - default False: ")
+    if computeByRemaining == '':
+        computeByRemaining = False
+    else:
+        computeByRemaining = bool(computeByRemaining)
+
     withdrawAllMoneyAtLast = input(
         "Do you want to take all money at last(1/0) - default False: ")
     if withdrawAllMoneyAtLast == '':
@@ -134,7 +147,7 @@ if __name__ == '__main__':
         withdrawAllMoneyAtLast = bool(withdrawAllMoneyAtLast)
 
     ret = main(dollarBaseLine, currentAlgord, pointsNumberToTake,
-               withdrawAllMoneyAtLast)
+               computeByRemaining, withdrawAllMoneyAtLast)
 
     print('\n-----Below is the caculated result-----')
     printFinalRet(ret)
