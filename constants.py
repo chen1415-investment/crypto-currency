@@ -59,3 +59,38 @@ smallerProfitTakenMap = {
         'text': '$400',
     },
 }
+
+fiftyOnlyMap = {
+    1: {
+        'value': 50,
+        'text': '$50',
+    },
+    2: {
+        'value': 50,
+        'text': '$50',
+    },
+    3: {
+        'value': 50,
+        'text': '$50',
+    },
+    4: {
+        'value': 50,
+        'text': '$50',
+    },
+    5: {
+        'value': 50,
+        'text': '$50',
+    },
+    6: {
+        'value': 50,
+        'text': '$50',
+    },
+    7: {
+        'value': 50,
+        'text': '$50',
+    },
+    8: {
+        'value': 50,
+        'text': '$50',
+    },
+}

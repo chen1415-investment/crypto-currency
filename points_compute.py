@@ -1,4 +1,4 @@
-from constants import profitTakenMap, smallerProfitTakenMap
+from constants import profitTakenMap, smallerProfitTakenMap, fiftyOnlyMap
 import math
 
 
@@ -97,8 +97,10 @@ def getTakenPoints(pointsNumberToTake):
             return
 
         array.append({
-            'point': pointsNumberToTake,
-            'taken_profit': profitTakenMap[pointsNumberToTake]['text']
+            'point':
+            pointsNumberToTake,
+            'taken_profit':
+            profitTakenMap[pointsNumberToTake]['text']
         })
         return getPointsRecursively(pointsNumberToTake - 1)
 
@@ -130,7 +132,7 @@ if __name__ == '__main__':
     if pointsNumberToTake == '':
         pointsNumberToTake = 6
     else:
-        withdrawAllMoneyAtLast = int(pointsNumberToTake)
+        pointsNumberToTake = int(pointsNumberToTake)
 
     computeByRemaining = input(
         "Do you want to compute by remaning(1/0) - default False: ")
