@@ -1,6 +1,7 @@
 from constants import profitTakenMap, smallerProfitTakenMap, fiftyOnlyMap
 import math
 
+usedProfitMap = profitTakenMap
 
 def main(dollarBaseLine=0,
          currentAlgord=0,
@@ -66,7 +67,7 @@ def computeMiddleParams(dollarBaseLine, currentAlgord, pointsArray,
     for index in range(len(pointsArray)):
 
         level = pointsArray[index]
-        takenProfit = profitTakenMap[level['point']]['value']
+        takenProfit = usedProfitMap[level['point']]['value']
         '''
         这里如果index==0 意味着当前的taken profit是50 
         这是第一级take的profit 那么currentAlgord就是原样
@@ -97,10 +98,8 @@ def getTakenPoints(pointsNumberToTake):
             return
 
         array.append({
-            'point':
-            pointsNumberToTake,
-            'taken_profit':
-            profitTakenMap[pointsNumberToTake]['text']
+            'point': pointsNumberToTake,
+            'taken_profit': usedProfitMap[pointsNumberToTake]['text']
         })
         return getPointsRecursively(pointsNumberToTake - 1)
 
